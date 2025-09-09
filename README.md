@@ -36,9 +36,291 @@ Deploy the website.
 Upload to GitHub Pages for free hosting.
 
 ## PROGRAM
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taskify - Smart To-Do Manager</title>
+  <style>
+    /* General Styling */
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+      color: #333;
+    }
+
+    /* Header */
+    header {
+      background: #0077cc;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+    header nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    header nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+      background: url('https://source.unsplash.com/1600x600/?office,productivity') center/cover no-repeat;
+      color: white;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    }
+    .hero h1 span {
+      color: #ffeb3b;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: #ff4081;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 30px;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #e91e63;
+    }
+
+    /* To-Do Section */
+    .todo-section {
+      padding: 50px 20px;
+      text-align: center;
+    }
+    .todo-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+    .todo-container input {
+      padding: 12px;
+      border: 2px solid #0077cc;
+      border-radius: 8px;
+      width: 260px;
+      outline: none;
+    }
+    .todo-container button {
+      padding: 12px 18px;
+      background: #0077cc;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .todo-container button:hover {
+      background: #005fa3;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: white;
+      margin: 10px auto;
+      padding: 14px 20px;
+      border-radius: 8px;
+      width: 350px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      animation: fadeIn 0.3s ease-in;
+    }
+    li.completed span {
+      text-decoration: line-through;
+      color: gray;
+    }
+    .actions button {
+      margin-left: 8px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.2s;
+    }
+    .actions button.complete { color: green; }
+    .actions button.delete { color: red; }
+    .actions button:hover { transform: scale(1.2); }
+
+    /* Info Sections */
+    .info-section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    /* Footer */
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    @keyframes fadeOut {
+      from {opacity: 1; transform: scale(1);}
+      to {opacity: 0; transform: scale(0.9);}
+    }
+    .fadeOut {
+      animation: fadeOut 0.3s forwards;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">🛒 Taskify</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#todo">To-Do App</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <h1>Welcome to <span>Taskify</span></h1>
+    <p>Your stylish commercial To-Do manager — get productive in style!</p>
+    <a href="#todo" class="btn">Start Managing Tasks</a>
+  </section>
+
+  <!-- To-Do App -->
+  <section id="todo" class="todo-section">
+    <h2>✨ My To-Do List ✨</h2>
+    <div class="todo-container">
+      <input type="text" id="taskInput" placeholder="✍️ Write a task...">
+      <button onclick="addTask()">+ Add</button>
+    </div>
+    <ul id="taskList"></ul>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="info-section">
+    <h2>About Taskify</h2>
+    <p>
+      Taskify is a commercial-style productivity platform.<br>
+      It lets you manage your tasks as easily as shopping in a store.<br>
+      Add, complete, and delete tasks instantly!
+    </p>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="info-section">
+    <h2>Contact Us</h2>
+    <p>Email: support@taskify.com | Phone: +91-90000-12345</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Taskify | Designed by <strong>Vaishnavi R Nair</strong> | Reg No: <strong>212224110058</strong></p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    const taskInput = document.getElementById("taskInput");
+    const taskList = document.getElementById("taskList");
+
+    // Load tasks from localStorage
+    window.onload = () => {
+      const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      savedTasks.forEach(task => renderTask(task.text, task.completed));
+    };
+
+    // Add Task
+    function addTask() {
+      const taskText = taskInput.value.trim();
+      if (taskText === "") {
+        alert("⚠️ Please enter a task!");
+        return;
+      }
+      renderTask(taskText, false);
+      saveTasks();
+      taskInput.value = "";
+    }
+
+    // Render Task
+    function renderTask(text, completed) {
+      const li = document.createElement("li");
+      li.className = completed ? "completed" : "";
+      li.innerHTML = `
+        <span>${text}</span>
+        <div class="actions">
+          <button class="complete" onclick="toggleComplete(this)">✔</button>
+          <button class="delete" onclick="deleteTask(this)">✖</button>
+        </div>
+      `;
+      taskList.appendChild(li);
+    }
+
+    // Toggle Complete
+    function toggleComplete(button) {
+      const li = button.closest("li");
+      li.classList.toggle("completed");
+      saveTasks();
+    }
+
+    // Delete Task
+    function deleteTask(button) {
+      const li = button.closest("li");
+      li.classList.add("fadeOut");
+      setTimeout(() => {
+        li.remove();
+        saveTasks();
+      }, 300);
+    }
+
+    // Save Tasks to localStorage
+    function saveTasks() {
+      const tasks = [];
+      document.querySelectorAll("#taskList li").forEach(li => {
+        tasks.push({
+          text: li.querySelector("span").innerText,
+          completed: li.classList.contains("completed")
+        });
+      });
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+  </script>
+</body>
+</html>
+
+```
 
 
 ## OUTPUT
+
+<img width="1900" height="977" alt="Screenshot 2025-09-09 091625" src="https://github.com/user-attachments/assets/fa21e8c5-00f5-4df2-80cd-99b5e3610020" />
+<img width="1867" height="1020" alt="Screenshot 2025-09-09 092215" src="https://github.com/user-attachments/assets/96eb3f06-4a16-4120-b955-e9179a67622c" />
 
 
 ## RESULT
